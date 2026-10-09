@@ -1,0 +1,171 @@
+station_id,city,site,agency,location_id,location,lat,lon,days_in_window,first_day,last_day,included,reason
+BEN-bapuji-nagar-kspcb,Bengaluru,Bapuji Nagar,KSPCB,6974,"Bapuji Nagar, Bengaluru - KSPCB-6974",12.951913,77.539784,1204,2019-01-03,2026-09-30,1,
+BEN-btm-layout-cpcb,Bengaluru,BTM Layout,CPCB,5548,"BTM Layout, Bengaluru - CPCB-5548",12.9135218,77.5950804,1220,2019-01-03,2026-09-30,1,
+BEN-btm-layout-kspcb,Bengaluru,BTM Layout,KSPCB,594,"BTM Layout, Bengaluru - KSPCB-594",12.91281111,77.60921944,0,,,0,no files in the study window
+BEN-bwssb-kadabesanahalli-cpcb,Bengaluru,BWSSB Kadabesanahalli,CPCB,5547,"BWSSB Kadabesanahalli, Bengaluru - CPCB-5547",12.9352049,77.6814488,702,2019-01-03,2022-06-06,1,
+BEN-bwssb-kadabesanahalli-cpcb,Bengaluru,BWSSB Kadabesanahalli,CPCB,3409312,"BWSSB Kadabesanahalli, Bengaluru - CPCB-6069431",12.9352049,77.6814488,227,2025-10-18,2026-07-25,1,
+BEN-bwssb-kadabesanahalli-kspcb,Bengaluru,BWSSB Kadabesanahalli,KSPCB,2592,"BWSSB Kadabesanahalli, Bengaluru - KSPCB-2592",12.93890556,77.69727222,0,,,0,no files in the study window
+BEN-city-railway-station-kspcb,Bengaluru,City Railway Station,KSPCB,5574,"City Railway Station, Bengaluru - KSPCB-5574",12.9756843,77.5660749,1132,2019-01-03,2026-09-30,1,
+BEN-hebbal-kspcb,Bengaluru,Hebbal,KSPCB,6984,"Hebbal, Bengaluru - KSPCB-6984",13.029152,77.585901,1313,2019-01-03,2026-09-30,1,
+BEN-hombegowda-nagar-kspcb,Bengaluru,Hombegowda Nagar,KSPCB,6983,"Hombegowda Nagar, Bengaluru - KSPCB-6983",12.938539,77.5901,1292,2019-01-03,2026-09-28,1,
+BEN-jayanagar-5th-block-kspcb,Bengaluru,Jayanagar 5th Block,KSPCB,6973,"Jayanagar 5th Block, Bengaluru - KSPCB-6973",12.920984,77.584908,1318,2019-01-03,2026-09-30,1,
+BEN-jigani-kspcb,Bengaluru,Jigani,KSPCB,3409434,"Jigani, Bengaluru - KSPCB-3385058",12.7816279,77.6299145,438,2025-02-19,2026-09-29,1,
+BEN-kasturi-nagar-kspcb,Bengaluru,Kasturi Nagar,KSPCB,3409388,"Kasturi Nagar, Bengaluru - KSPCB-3379810",13.003872,77.664217,333,2025-02-19,2026-09-30,0,station has under 365 days in the window
+BEN-peenya-cpcb,Bengaluru,Peenya,CPCB,5607,"Peenya, Bengaluru - CPCB-5607",13.0270199,77.494094,1225,2019-01-03,2026-09-30,1,
+BEN-peenya-kspcb,Bengaluru,Peenya,KSPCB,412,"Peenya, Bengaluru - KSPCB-412",13.0339,77.51321111,0,,,0,no files in the study window
+BEN-rvce-mailasandra-kspcb,Bengaluru,RVCE-Mailasandra,KSPCB,3409385,"RVCE-Mailasandra, Bengaluru - KSPCB-3379807",12.921418,77.502466,423,2025-02-19,2026-07-07,1,
+BEN-sanegurava-halli-kspcb,Bengaluru,Sanegurava Halli,KSPCB,5644,"Sanegurava Halli, Bengaluru - KSPCB-5644",12.990328,77.5431385,1153,2019-01-03,2026-09-30,1,
+BEN-shivapura-peenya-kspcb,Bengaluru,Shivapura_Peenya,KSPCB,3409393,"Shivapura_Peenya, Bengaluru - KSPCB-3379815",13.0246342,77.5080115,450,2025-02-19,2026-09-18,1,
+BEN-silk-board-kspcb,Bengaluru,Silk Board,KSPCB,6975,"Silk Board, Bengaluru - KSPCB-6975",12.917348,77.622813,1293,2019-01-03,2026-09-30,1,
+CHE-alandur-bus-depot-cpcb,Chennai,Alandur Bus Depot,CPCB,5558,"Alandur Bus Depot, Chennai - CPCB-5558",12.9099161,80.1076538,841,2019-01-03,2022-10-31,1,
+CHE-alandur-bus-depot-cpcb,Chennai,Alandur Bus Depot,CPCB,3409319,"Alandur Bus Depot, Chennai - CPCB-3379568",12.9099161,80.1076538,257,2025-02-19,2025-12-02,1,
+CHE-arumbakkam-tnpcb,Chennai,Arumbakkam,TNPCB,11581,"Arumbakkam, Chennai - TNPCB-11581",13.0664,80.2112,765,2020-11-11,2026-09-30,1,
+CHE-gandhi-nagar-ennore-tnpcb,Chennai,Gandhi Nagar_Ennore,TNPCB,358458,"Gandhi Nagar_Ennore, Chennai - TNPCB-369059",13.218341,80.32027,25,2022-09-23,2022-10-31,0,station has under 365 days in the window
+CHE-gandhi-nagar-ennore-tnpcb,Chennai,Gandhi Nagar_Ennore,TNPCB,3409352,"Gandhi Nagar_Ennore, Chennai - TNPCB-6066020",13.218341,80.32027,73,2025-10-15,2026-01-10,0,station has under 365 days in the window
+CHE-kodungaiyur-tnpcb,Chennai,Kodungaiyur,TNPCB,11579,"Kodungaiyur, Chennai - TNPCB-11579",13.1278,80.2642,940,2020-11-08,2026-09-30,1,
+CHE-manali-cpcb,Chennai,Manali,CPCB,2586,"Manali, Chennai - CPCB-2586",13.164544,80.26285,1285,2019-01-03,2026-09-30,1,
+CHE-manali-village-tnpcb,Chennai,Manali Village,TNPCB,6920,"Manali Village, Chennai - TNPCB-6920",11.258244,77.552429,7,2019-06-19,2019-07-19,1,
+CHE-manali-village-tnpcb,Chennai,Manali Village,TNPCB,10780,"Manali Village, Chennai - TNPCB-10780",13.1662,80.2584,1365,2019-07-19,2026-09-30,1,
+CHE-perungudi-tnpcb,Chennai,Perungudi,TNPCB,12046,"Perungudi, Chennai - TNPCB-12092",12.9533,80.2357,818,2020-12-18,2026-09-28,1,
+CHE-royapuram-tnpcb,Chennai,Royapuram,TNPCB,11578,"Royapuram, Chennai - TNPCB-11578",13.1036,80.2909,934,2020-11-08,2026-09-30,1,
+CHE-velachery-res-area-cpcb,Chennai,Velachery Res. Area,CPCB,5655,"Velachery Res. Area, Chennai - CPCB-5655",13.0052189,80.2398125,1389,2019-01-03,2026-09-30,1,
+DEL-alipur-dpcc,Delhi,Alipur,DPCC,6932,"Alipur, Delhi - DPCC-6932",28.815329,77.15301,1436,2019-01-03,2026-09-30,1,
+DEL-anand-vihar-dpcc,Delhi,Anand Vihar,DPCC,235,"Anand Vihar, Delhi - DPCC-235",28.6508,77.3152,574,2025-02-19,2026-09-30,1,
+DEL-anand-vihar-dpcc,Delhi,Anand Vihar,DPCC,5509,"Anand Vihar, Delhi - DPCC-5509",28.647622,77.315809,167,2021-09-20,2022-10-31,1,
+DEL-anand-vihar-dpcc,Delhi,Anand Vihar,DPCC,10487,"Anand Vihar, Delhi - DPCC-10487",28.646835,77.316032,615,2019-01-03,2021-09-20,1,
+DEL-ashok-vihar-dpcc,Delhi,Ashok Vihar,DPCC,5762,"Ashok Vihar, Delhi - DPCC-5762",28.6957202,77.1812947,0,,,0,no files in the study window
+DEL-ashok-vihar-dpcc,Delhi,Ashok Vihar,DPCC,8917,"Ashok Vihar, Delhi - DPCC-8917",28.695381,77.181665,1406,2019-01-03,2026-09-30,1,
+DEL-aya-nagar-imd,Delhi,Aya Nagar,IMD,5570,"Aya Nagar, Delhi - IMD-5570",28.4706914,77.1099364,1361,2019-01-03,2026-09-30,1,
+DEL-bawana-dpcc,Delhi,Bawana,DPCC,8472,"Bawana, Delhi - DPCC-8472",28.7762,77.051074,1410,2019-01-03,2026-09-30,1,
+DEL-burari-crossing-imd,Delhi,Burari Crossing,IMD,5541,"Burari Crossing, Delhi - IMD-5541",28.7256504,77.2011573,826,2019-01-03,2026-09-30,1,
+DEL-cantonment-area-dpcc,Delhi,Cantonment Area,DPCC,6257818,"Cantonment Area, Delhi - DPCC-6227749",28.594169,77.1251,210,2026-03-02,2026-09-30,0,station has under 365 days in the window
+DEL-chandni-chowk-iitm,Delhi,Chandni Chowk,IITM,11603,"Chandni Chowk, Delhi - IITM-11603",28.656756,77.227234,841,2020-11-13,2026-09-30,1,
+DEL-commonwealth-sports-complex-dpcc,Delhi,Commonwealth Sports Complex,DPCC,6254665,"Commonwealth Sports Complex, Delhi - DPCC-6224596",28.615828,77.271992,211,2026-02-27,2026-09-30,0,station has under 365 days in the window
+DEL-crri-mathura-road-imd,Delhi,CRRI Mathura Road,IMD,5627,"CRRI Mathura Road, Delhi - IMD-5627",28.5512005,77.2735737,1394,2019-01-03,2026-09-30,1,
+DEL-delhi-technological-university-cpcb,Delhi,Delhi Technological University,CPCB,13,"Delhi Technological University, Delhi - CPCB-13",28.744,77.12,0,,,0,no files in the study window
+DEL-dr-karni-singh-shooting-range-dpcc,Delhi,Dr. Karni Singh Shooting Range,DPCC,5744,"Dr. Karni Singh Shooting Range, Delhi - DPCC-5744",28.4997315,77.2649067,0,,,0,no files in the study window
+DEL-dr-karni-singh-shooting-range-dpcc,Delhi,Dr. Karni Singh Shooting Range,DPCC,6934,"Dr. Karni Singh Shooting Range, Delhi - DPCC-6934",28.498571,77.26484,1303,2019-01-03,2026-09-30,1,
+DEL-dtu-cpcb,Delhi,DTU,CPCB,5626,"DTU, Delhi - CPCB-5626",28.7500499,77.1112615,1490,2019-01-03,2026-09-30,1,
+DEL-dwarka-sector-8-dpcc,Delhi,Dwarka-Sector 8,DPCC,5760,"Dwarka-Sector 8, Delhi - DPCC -5760",28.5206826,76.8023871,0,,,0,no files in the study window
+DEL-dwarka-sector-8-dpcc,Delhi,Dwarka-Sector 8,DPCC,6931,"Dwarka-Sector 8, Delhi - DPCC -6931",28.5710274,77.0719006,1417,2019-01-03,2026-09-30,1,
+DEL-east-arjun-nagar-cpcb,Delhi,East Arjun Nagar,CPCB,7434,"East Arjun Nagar, Delhi - CPCB-7434",28.6556017,77.2859318,81,2019-01-03,2020-02-10,0,station has under 365 days in the window
+DEL-east-arjun-nagar-cpcb,Delhi,East Arjun Nagar,CPCB,8092,"East Arjun Nagar, Delhi - CPCB-8092",28.655935,77.294904,89,2020-03-01,2022-01-26,0,station has under 365 days in the window
+DEL-igi-airport-t3-imd,Delhi,IGI Airport (T3),IMD,5650,"IGI Airport (T3), Delhi - IMD-5650",28.5627763,77.1180053,1312,2019-01-03,2026-09-30,1,
+DEL-ignou-maidan-garhi-dpcc,Delhi,IGNOU_Maidan Garhi,DPCC,6254666,"IGNOU_Maidan Garhi, Delhi - DPCC-6224597",28.493624,77.201159,194,2026-02-27,2026-09-30,0,station has under 365 days in the window
+DEL-ihbas-cpcb,Delhi,IHBAS,CPCB,431,"IHBAS, Delhi - CPCB-431",28.6821,77.305,0,,,0,no files in the study window
+DEL-ihbas-dilshad-garden-cpcb,Delhi,"IHBAS, Dilshad Garden",CPCB,5654,"IHBAS, Dilshad Garden,New Delhi - CPCB-5654",28.6802747,77.2011573,0,,,0,no files in the study window
+DEL-ihbas-dilshad-garden-cpcb,Delhi,"IHBAS, Dilshad Garden",CPCB,6359,"IHBAS, Dilshad Garden, Delhi - CPCB-6359",28.6811736,77.3025234,1373,2019-01-03,2026-09-30,1,
+DEL-iit-delhi-iitm,Delhi,IIT Delhi,IITM,6148686,"IIT Delhi, Delhi - IITM-6118616",28.54246,77.191651,271,2025-12-01,2026-09-30,0,station has under 365 days in the window
+DEL-income-tax-office-cpcb,Delhi,Income Tax Office,CPCB,103,"Income Tax Office, Delhi - CPCB-103",28.6235,77.2494,0,,,0,no files in the study window
+DEL-ito-cpcb,Delhi,ITO,CPCB,5613,"ITO, Delhi - CPCB-5613",28.6316945,77.2494387,758,2019-01-03,2026-09-30,1,
+DEL-ito-cpcb,Delhi,ITO,CPCB,10489,"ITO, Delhi - CPCB-10489",28.628624,77.24106,615,2020-01-20,2022-10-31,1,
+DEL-jahangirpuri-dpcc,Delhi,Jahangirpuri,DPCC,5761,"Jahangirpuri, Delhi - DPCC-5761",28.7258373,77.1605631,0,,,0,no files in the study window
+DEL-jahangirpuri-dpcc,Delhi,Jahangirpuri,DPCC,8235,"Jahangirpuri, Delhi - DPCC-8235",28.73282,77.170633,1307,2019-01-03,2026-09-30,1,
+DEL-jawaharlal-nehru-stadium-dpcc,Delhi,Jawaharlal Nehru Stadium,DPCC,5754,"Jawaharlal Nehru Stadium, Delhi - DPCC-5754",28.5828503,77.2321778,0,,,0,no files in the study window
+DEL-jawaharlal-nehru-stadium-dpcc,Delhi,Jawaharlal Nehru Stadium,DPCC,6957,"Jawaharlal Nehru Stadium, Delhi - DPCC-6957",28.58028,77.233829,1315,2019-01-03,2026-09-30,1,
+DEL-jnu-dpcc,Delhi,JNU,DPCC,6254663,"JNU, Delhi - DPCC-6224594",28.540721,77.168544,214,2026-02-27,2026-09-30,0,station has under 365 days in the window
+DEL-lodhi-road-iitm,Delhi,Lodhi Road,IITM,11607,"Lodhi Road, Delhi - IITM-11607",28.588333,77.221667,576,2020-11-13,2025-12-27,0,"co-located with DEL-lodhi-road-imd, which has the longer record"
+DEL-lodhi-road-imd,Delhi,Lodhi Road,IMD,5634,"Lodhi Road, Delhi - IMD-5634",28.5918245,77.2273074,1300,2019-01-03,2026-09-30,1,
+DEL-major-dhyan-chand-national-stadium-dpcc,Delhi,Major Dhyan Chand National Stadium,DPCC,5755,"Major Dhyan Chand National Stadium, Delhi - DPCC-5755",28.6125027,77.2351994,0,,,0,no files in the study window
+DEL-major-dhyan-chand-national-stadium-dpcc,Delhi,Major Dhyan Chand National Stadium,DPCC,6929,"Major Dhyan Chand National Stadium, Delhi - DPCC-6929",28.611281,77.237738,1318,2019-01-03,2026-09-30,1,
+DEL-mandir-marg-dpcc,Delhi,Mandir Marg,DPCC,236,"Mandir Marg, Delhi - DPCC-236",28.6341,77.2005,0,,,0,no files in the study window
+DEL-mandir-marg-dpcc,Delhi,Mandir Marg,DPCC,5641,"Mandir Marg, New Delhi - DPCC-5641",28.6372688,77.2005604,0,,,0,no files in the study window
+DEL-mandir-marg-dpcc,Delhi,Mandir Marg,DPCC,6358,"Mandir Marg, Delhi - DPCC-6358",28.636429,77.201067,1494,2019-01-03,2026-09-30,1,
+DEL-mundka-dpcc,Delhi,Mundka,DPCC,10486,"Mundka, Delhi - DPCC-10486",28.684678,77.076574,1403,2019-01-03,2026-09-30,1,
+DEL-najafgarh-dpcc,Delhi,Najafgarh,DPCC,5764,"Najafgarh, Delhi - DPCC-5764",28.5108561,76.7093948,0,,,0,no files in the study window
+DEL-najafgarh-dpcc,Delhi,Najafgarh,DPCC,10488,"Najafgarh, Delhi - DPCC-10488",28.570173,76.933762,1281,2019-01-03,2026-09-30,1,
+DEL-narela-dpcc,Delhi,Narela,DPCC,5763,"Narela, Delhi - DPCC-5763",28.8446874,77.0332666,0,,,0,no files in the study window
+DEL-narela-dpcc,Delhi,Narela,DPCC,10485,"Narela, Delhi - DPCC-10485",28.822836,77.101981,1327,2019-01-03,2026-09-30,1,
+DEL-nehru-nagar-dpcc,Delhi,Nehru Nagar,DPCC,5766,"Nehru Nagar, Delhi - DPCC-5766",28.5639543,77.2587868,0,,,0,no files in the study window
+DEL-nehru-nagar-dpcc,Delhi,Nehru Nagar,DPCC,8365,"Nehru Nagar, Delhi - DPCC-8365",28.56789,77.250515,1387,2019-01-03,2026-09-30,1,
+DEL-new-moti-bagh-mhua,Delhi,New Moti Bagh,MHUA,3409496,"New Moti Bagh, Delhi - MHUA-6236838",28.57834,77.184,95,2026-03-10,2026-06-13,0,station has under 365 days in the window
+DEL-north-campus-du-imd,Delhi,"North Campus, DU",IMD,5610,"North Campus, DU, Delhi - IMD-5610",28.6573814,77.1585447,1333,2019-01-03,2026-09-30,1,
+DEL-nsit-dwarka-cpcb,Delhi,NSIT Dwarka,CPCB,2584,"NSIT Dwarka, Delhi - CPCB-2584",28.591,77.05,0,,,0,no files in the study window
+DEL-nsit-dwarka-cpcb,Delhi,NSIT Dwarka,CPCB,5622,"NSIT Dwarka, Delhi - CPCB-5622",28.60909,77.0325413,1451,2019-02-13,2026-09-30,1,
+DEL-nsut-jaffarpur-dpcc,Delhi,NSUT Jaffarpur,DPCC,6254664,"NSUT Jaffarpur, Delhi - DPCC-6224595",28.594004,76.909423,214,2026-02-27,2026-09-30,0,station has under 365 days in the window
+DEL-okhla-phase-2-dpcc,Delhi,Okhla Phase-2,DPCC,5765,"Okhla Phase-2, Delhi - DPCC-5765",28.5366411,77.2664587,0,,,0,no files in the study window
+DEL-okhla-phase-2-dpcc,Delhi,Okhla Phase-2,DPCC,8239,"Okhla Phase-2, Delhi - DPCC-8239",28.530785,77.271255,1394,2019-01-03,2026-09-30,1,
+DEL-patparganj-dpcc,Delhi,Patparganj,DPCC,5742,"Patparganj, Delhi - DPCC-5742",28.6310495,77.2846218,0,,,0,no files in the study window
+DEL-patparganj-dpcc,Delhi,Patparganj,DPCC,6960,"Patparganj, Delhi - DPCC-6960",28.623763,77.287209,1320,2019-01-03,2026-09-30,1,
+DEL-punjabi-bagh-dpcc,Delhi,Punjabi Bagh,DPCC,50,"Punjabi Bagh, Delhi - DPCC-50",28.6683,77.1167,570,2025-02-19,2026-09-30,1,
+DEL-punjabi-bagh-dpcc,Delhi,Punjabi Bagh,DPCC,5540,"Punjabi Bagh, Delhi - DPCC-5540",28.6670856,77.1301247,0,,,0,no files in the study window
+DEL-punjabi-bagh-dpcc,Delhi,Punjabi Bagh,DPCC,6357,"Punjabi Bagh, Delhi - DPCC-6357",28.674045,77.131023,794,2019-01-03,2022-10-16,1,
+DEL-pusa-imd,Delhi,Pusa,IMD,5404,"Pusa, Delhi - IMD-3379470",28.639645,77.146263,543,2025-02-19,2026-09-30,1,
+DEL-pusa-imd,Delhi,Pusa,IMD,5581,"Pusa, New Delhi - IMD-5581",28.610304,77.0996943,0,,,0,no files in the study window
+DEL-pusa-imd,Delhi,Pusa,IMD,6356,"Pusa, Delhi - IMD-6356",28.639645,77.146263,1364,2019-01-03,2026-09-29,1,
+DEL-r-k-puram-dpcc,Delhi,R K Puram,DPCC,17,"R K Puram, Delhi - DPCC-17",28.5648,77.1744,573,2025-02-19,2026-09-30,1,
+DEL-r-k-puram-dpcc,Delhi,R K Puram,DPCC,5639,"R K Puram, New Delhi - DPCC-5639",28.5646102,77.1670103,0,,,0,no files in the study window
+DEL-r-k-puram-dpcc,Delhi,R K Puram,DPCC,7044,"R K Puram, Delhi - DPCC-7044",28.563262,77.186937,918,2019-01-03,2022-10-31,1,
+DEL-rohini-dpcc,Delhi,Rohini,DPCC,5743,"Rohini, Delhi - DPCC-5743",28.7407056,77.0577492,0,,,0,no files in the study window
+DEL-rohini-dpcc,Delhi,Rohini,DPCC,10831,"Rohini, Delhi - DPCC-10831",28.732528,77.11992,1307,2019-01-03,2026-09-30,1,
+DEL-shadipur-cpcb,Delhi,Shadipur,CPCB,2503,"Shadipur, Delhi - CPCB-2503",28.6517,77.1581,0,,,0,no files in the study window
+DEL-shadipur-cpcb,Delhi,Shadipur,CPCB,5630,"Shadipur, Delhi - CPCB-5630",28.6514781,77.1473105,1493,2019-01-03,2026-09-30,1,
+DEL-sirifort-cpcb,Delhi,Sirifort,CPCB,5586,"Sirifort, Delhi - CPCB-5586",28.5504249,77.2159377,1470,2019-01-03,2026-09-30,1,
+DEL-sonia-vihar-dpcc,Delhi,Sonia Vihar,DPCC,5759,"Sonia Vihar, Delhi - DPCC-5759",28.67795,77.29868,0,,,0,no files in the study window
+DEL-sonia-vihar-dpcc,Delhi,Sonia Vihar,DPCC,8475,"Sonia Vihar, Delhi - DPCC-8475",28.710508,77.249485,1381,2019-01-03,2026-09-30,1,
+DEL-sri-aurobindo-marg-dpcc,Delhi,Sri Aurobindo Marg,DPCC,10484,"Sri Aurobindo Marg, Delhi - DPCC-10484",28.531346,77.190156,1317,2019-01-03,2026-09-30,1,
+DEL-talkatora-garden-dpcc,Delhi,Talkatora Garden,DPCC,6254594,"Talkatora Garden, Delhi - DPCC-6224525",28.62181,77.1944633,210,2026-02-27,2026-09-30,0,station has under 365 days in the window
+DEL-vivek-vihar-dpcc,Delhi,Vivek Vihar,DPCC,5753,"Vivek Vihar, Delhi - DPCC-5753",28.6687803,77.3130982,0,,,0,no files in the study window
+DEL-vivek-vihar-dpcc,Delhi,Vivek Vihar,DPCC,6938,"Vivek Vihar, Delhi - DPCC-6938",28.672342,77.31526,1407,2019-01-02,2026-09-30,1,
+DEL-wazirpur-dpcc,Delhi,Wazirpur,DPCC,5756,"Wazirpur, Delhi - DPCC-5756",28.701616,77.164238,0,,,0,no files in the study window
+DEL-wazirpur-dpcc,Delhi,Wazirpur,DPCC,8915,"Wazirpur, Delhi - DPCC-8915",28.699793,77.165453,1301,2019-01-03,2026-09-30,1,
+HYD-bollaram-industrial-area-tspcb,Hyderabad,Bollaram Industrial Area,TSPCB,5599,"Bollaram Industrial Area, Hyderabad - TSPCB-5599",17.540891,78.358528,1237,2019-01-03,2026-09-30,1,
+HYD-central-university-tspcb,Hyderabad,Central University,TSPCB,5623,"Central University, Hyderabad - TSPCB-5623",17.460103,78.334361,1338,2019-01-03,2026-09-30,1,
+HYD-ecil-kapra-tspcb,Hyderabad,ECIL Kapra,TSPCB,344103,"ECIL Kapra, Hyderabad - TSPCB-354770",17.470431,78.566959,601,2022-05-26,2026-09-30,1,
+HYD-icrisat-patancheru-tspcb,Hyderabad,ICRISAT Patancheru,TSPCB,5645,"ICRISAT Patancheru, Hyderabad - TSPCB-5645",17.4342359,78.4170318,849,2019-01-03,2026-09-30,1,
+HYD-icrisat-patancheru-tspcb,Hyderabad,ICRISAT Patancheru,TSPCB,7583,"ICRISAT Patancheru, Hyderabad - TSPCB-7583",17.305178,78.162863,1,2020-04-28,2020-04-28,1,
+HYD-icrisat-patancheru-tspcb,Hyderabad,ICRISAT Patancheru,TSPCB,10897,"ICRISAT Patancheru, Hyderabad - TSPCB-10897",17.5184,78.278777,586,2020-04-28,2022-10-31,1,
+HYD-ida-pashamylaram-tspcb,Hyderabad,IDA Pashamylaram,TSPCB,5624,"IDA Pashamylaram, Hyderabad - TSPCB-5624",17.5316895,78.218939,1270,2019-01-03,2026-09-30,1,
+HYD-iith-kandi-tspcb,Hyderabad,IITH Kandi,TSPCB,344144,"IITH Kandi, Hyderabad - TSPCB-354745",17.585705,78.126199,549,2022-05-26,2026-09-30,1,
+HYD-kokapet-tspcb,Hyderabad,Kokapet,TSPCB,346258,"Kokapet, Hyderabad - TSPCB-356859",17.393559,78.339194,578,2022-06-02,2026-09-30,1,
+HYD-kompally-municipal-office-tspcb,Hyderabad,Kompally Municipal Office,TSPCB,344104,"Kompally Municipal Office, Hyderabad - TSPCB-354772",17.544899,78.486949,607,2022-05-26,2026-09-30,1,
+HYD-nacharam-tsiic-iala-tspcb,Hyderabad,Nacharam_TSIIC IALA,TSPCB,344142,"Nacharam_TSIIC IALA, Hyderabad - TSPCB-354743",17.429398,78.569354,571,2022-05-26,2026-09-30,1,
+HYD-new-malakpet-tspcb,Hyderabad,New Malakpet,TSPCB,352465,"New Malakpet, Hyderabad - TSPCB-363066",17.37206,78.50864,593,2022-09-23,2026-09-30,1,
+HYD-ramachandrapuram-tspcb,Hyderabad,Ramachandrapuram,TSPCB,346257,"Ramachandrapuram, Hyderabad - TSPCB-356858",17.528544,78.286195,560,2022-06-02,2026-09-30,1,
+HYD-sanathnagar-tspcb,Hyderabad,Sanathnagar,TSPCB,2594,"Sanathnagar, Hyderabad - TSPCB-2594",17.42329722,78.47469722,0,,,0,no files in the study window
+HYD-sanathnagar-tspcb,Hyderabad,Sanathnagar,TSPCB,5647,"Sanathnagar, Hyderabad - TSPCB-5647",17.4559458,78.4332152,1331,2019-01-03,2026-09-30,1,
+HYD-somajiguda-tspcb,Hyderabad,Somajiguda,TSPCB,344140,"Somajiguda, Hyderabad - TSPCB-354769",17.417094,78.457437,605,2022-05-26,2026-09-30,1,
+HYD-zoo-park-tspcb,Hyderabad,Zoo Park,TSPCB,407,"Zoo Park, Hyderabad - TSPCB-407",17.349694,78.451437,1307,2019-01-03,2026-09-30,1,
+KOL-ballygunge-wbpcb,Kolkata,Ballygunge,WBPCB,10918,"Ballygunge, Kolkata - WBPCB-10918",22.5367507,88.3638022,1085,2020-01-02,2026-09-30,1,
+KOL-bidhannagar-wbpcb,Kolkata,Bidhannagar,WBPCB,10851,"Bidhannagar, Kolkata - WBPCB-10851",22.58157048,88.41002457,1081,2020-01-02,2026-09-30,1,
+KOL-fort-william-wbpcb,Kolkata,Fort William,WBPCB,6981,"Fort William, Kolkata - WBPCB-6981",22.55664,88.342674,1363,2019-06-19,2026-09-30,1,
+KOL-jadavpur-wbpcb,Kolkata,Jadavpur,WBPCB,6950,"Jadavpur, Kolkata - WBPCB-6950",22.49929,88.36917,1354,2019-06-19,2026-09-30,1,
+KOL-rabindra-bharati-university-wbpcb,Kolkata,Rabindra Bharati University,WBPCB,716,"Rabindra Bharati University, Kolkata - WBSPCB-716",22.627875,88.3804,0,,,0,no files in the study window
+KOL-rabindra-bharati-university-wbpcb,Kolkata,Rabindra Bharati University,WBPCB,6310,"Rabindra Bharati University, Kolkata - WBPCB-6310",22.5824635,88.3572447,0,,,0,no files in the study window
+KOL-rabindra-bharati-university-wbpcb,Kolkata,Rabindra Bharati University,WBPCB,3409320,"Rabindra Bharati University, Kolkata - WBPCB-3379570",22.627875,88.3804,575,2025-02-19,2026-09-30,1,
+KOL-rabindra-sarobar-wbpcb,Kolkata,Rabindra Sarobar,WBPCB,10904,"Rabindra Sarobar, Kolkata - WBPCB-10904",22.51106,88.35142,1391,2019-08-09,2026-09-30,1,
+KOL-victoria-wbpcb,Kolkata,Victoria,WBPCB,10633,"Victoria, Kolkata - WBPCB-10633",22.5448082,88.3403691,1259,2019-01-03,2026-09-30,1,
+MUM-bandra-kurla-complex-iitm,Mumbai,Bandra Kurla Complex,IITM,11602,"Bandra Kurla Complex, Mumbai - IITM-11602",19.053536,72.84643,401,2020-11-13,2022-10-16,1,
+MUM-bandra-kurla-complex-iitm,Mumbai,Bandra Kurla Complex,IITM,3409328,"Bandra Kurla Complex, Mumbai - IITM-3961029",19.0627,72.84614,468,2025-04-07,2026-09-30,1,
+MUM-bandra-kurla-complex-mpcb,Mumbai,Bandra Kurla Complex,MPCB,3409482,"Bandra Kurla Complex, Mumbai - MPCB-3379898",19.065931,72.862131,560,2025-02-19,2026-09-30,1,
+MUM-bandra-mpcb,Mumbai,Bandra,MPCB,7850,"Bandra, Mumbai - MPCB-7850",19.0627,72.84614,538,2020-01-08,2021-12-24,1,
+MUM-borivali-east-iitm,Mumbai,Borivali East,IITM,11606,"Borivali East, Mumbai - IITM-11606",19.23241,72.86895,948,2020-11-13,2026-09-30,0,"co-located with MUM-borivali-east-mpcb, which has the longer record"
+MUM-borivali-east-mpcb,Mumbai,Borivali East,MPCB,6965,"Borivali East, Mumbai - MPCB-6965",19.2243333,72.8658113,780,2019-06-20,2026-09-29,1,
+MUM-borivali-east-mpcb,Mumbai,Borivali East,MPCB,10899,"Borivali East, Mumbai - MPCB-10899",19.13276,72.52048,434,2020-01-08,2021-11-17,1,
+MUM-byculla-bmc,Mumbai,Byculla,BMC,3409510,"Byculla, Mumbai - BMC-3379920",18.9767,72.838,563,2025-02-19,2026-09-30,1,
+MUM-chakala-andheri-east-iitm,Mumbai,Chakala-Andheri East,IITM,12024,"Chakala-Andheri East, Mumbai - IITM-12070",19.11074,72.86084,924,2020-12-08,2026-09-30,1,
+MUM-chembur-mpcb,Mumbai,Chembur,MPCB,3409483,"Chembur, Mumbai - MPCB-3379899",19.0364585,72.8954371,554,2025-02-19,2026-09-30,1,
+MUM-chhatrapati-shivaji-intl-airport-t2-mpcb,Mumbai,Chhatrapati Shivaji Intl. Airport (T2),MPCB,6948,"Chhatrapati Shivaji Intl. Airport (T2), Mumbai - MPCB-6948",19.10078,72.87462,1281,2019-06-19,2026-09-30,1,
+MUM-colaba-mpcb,Mumbai,Colaba,MPCB,6927,"Colaba, Mumbai - MPCB-6927",18.91,72.82,1260,2019-06-28,2026-05-28,1,
+MUM-deonar-iitm,Mumbai,Deonar,IITM,11604,"Deonar, Mumbai - IITM-11604",19.04946,72.923,286,2020-11-13,2022-10-16,1,
+MUM-deonar-iitm,Mumbai,Deonar,IITM,3409329,"Deonar, Mumbai - IITM-3379668",19.04946,72.923,517,2025-02-19,2026-09-30,1,
+MUM-ghatkopar-bmc,Mumbai,Ghatkopar,BMC,3409514,"Ghatkopar, Mumbai - BMC-3379924",19.083694,72.920967,552,2025-02-19,2026-09-30,1,
+MUM-kandivali-east-mpcb,Mumbai,Kandivali East,MPCB,12044,"Kandivali East, Mumbai - MPCB-12090",19.2058,72.8682,720,2020-12-16,2026-04-18,1,
+MUM-kandivali-west-bmc,Mumbai,Kandivali West,BMC,3409512,"Kandivali West, Mumbai - BMC-3379922",19.215859,72.831718,556,2025-02-19,2026-09-30,1,
+MUM-kherwadi-bandra-east-mpcb,Mumbai,Kherwadi_Bandra East,MPCB,3409486,"Kherwadi_Bandra East, Mumbai - MPCB-3379902",19.0632143,72.8456324,565,2025-02-19,2026-09-30,1,
+MUM-khindipada-bhandup-west-iitm,Mumbai,Khindipada-Bhandup West,IITM,12039,"Khindipada-Bhandup West, Mumbai - IITM-12085",19.1653323,72.922099,779,2020-12-16,2026-09-30,1,
+MUM-kurla-mpcb,Mumbai,Kurla,MPCB,6945,"Kurla, Mumbai - MPCB-6945",19.0863,72.8888,1298,2019-06-19,2026-09-30,1,
+MUM-malad-west-iitm,Mumbai,Malad West,IITM,11611,"Malad West, Mumbai - IITM-11611",19.19709,72.82204,914,2020-11-13,2026-09-30,1,
+MUM-mazgaon-iitm,Mumbai,Mazgaon,IITM,11600,"Mazgaon, Mumbai - IITM-11600",18.96702,72.84214,966,2020-11-10,2026-09-30,1,
+MUM-mindspace-malad-west-mpcb,Mumbai,Mindspace-Malad West,MPCB,3409479,"Mindspace-Malad West, Mumbai - MPCB-3379895",19.1878657,72.8304069,564,2025-02-19,2026-09-30,1,
+MUM-mulund-west-mpcb,Mumbai,Mulund West,MPCB,12040,"Mulund West, Mumbai - MPCB-12086",19.175,72.9419,799,2020-12-16,2026-09-30,1,
+MUM-navy-nagar-colaba-iitm,Mumbai,Navy Nagar-Colaba,IITM,11605,"Navy Nagar-Colaba, Mumbai - IITM-11605",18.897756,72.81332,933,2020-11-13,2026-09-30,1,
+MUM-powai-mpcb,Mumbai,Powai,MPCB,6956,"Powai, Mumbai - MPCB-6956",19.1375,72.915056,1260,2019-06-19,2026-09-27,1,
+MUM-sewri-bmc,Mumbai,Sewri,BMC,3409513,"Sewri, Mumbai - BMC-3379923",19.000084,72.85673,537,2025-02-19,2026-09-30,1,
+MUM-shivaji-nagar-bmc,Mumbai,Shivaji Nagar,BMC,3409511,"Shivaji Nagar, Mumbai - BMC-3379921",19.060498,72.923356,562,2025-02-19,2026-09-30,1,
+MUM-siddharth-nagar-worli-iitm,Mumbai,Siddharth Nagar-Worli,IITM,60661,"Siddharth Nagar-Worli, Mumbai - IITM-55534",19.000083,72.813993,303,2021-01-12,2022-10-16,0,station has under 365 days in the window
+MUM-sion-mpcb,Mumbai,Sion,MPCB,6967,"Sion, Mumbai - MPCB-6967",19.047,72.8746,1258,2019-06-27,2026-09-30,1,
+MUM-vasai-west-mpcb,Mumbai,Vasai West,MPCB,6928,"Vasai West, Mumbai - MPCB-6928",19.3832,72.8204,980,2019-06-19,2026-05-13,1,
+MUM-vile-parle-west-mpcb,Mumbai,Vile Parle West,MPCB,6987,"Vile Parle West, Mumbai - MPCB-6987",19.10861,72.83622,1212,2019-06-19,2026-05-20,1,
+MUM-worli-mpcb,Mumbai,Worli,MPCB,6959,"Worli, Mumbai - MPCB-6959",18.9936162,72.8128113,1422,2019-06-20,2026-09-30,1,
+MUM-worli-mpcb,Mumbai,Worli,MPCB,3409323,"Worli, Mumbai - MPCB-3379612",18.9936162,72.8128113,502,2025-02-19,2026-09-30,1,

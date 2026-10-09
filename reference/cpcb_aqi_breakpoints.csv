@@ -1,0 +1,37 @@
+pollutant,category,aqi_lo,aqi_hi,conc_lo,conc_hi
+pm25,Good,0,50,0,30
+pm25,Satisfactory,50,100,30,60
+pm25,Moderate,100,200,60,90
+pm25,Poor,200,300,90,120
+pm25,Very Poor,300,400,120,250
+pm25,Severe,400,500,250,380
+pm10,Good,0,50,0,50
+pm10,Satisfactory,50,100,50,100
+pm10,Moderate,100,200,100,250
+pm10,Poor,200,300,250,350
+pm10,Very Poor,300,400,350,430
+pm10,Severe,400,500,430,510
+no2,Good,0,50,0,40
+no2,Satisfactory,50,100,40,80
+no2,Moderate,100,200,80,180
+no2,Poor,200,300,180,280
+no2,Very Poor,300,400,280,400
+no2,Severe,400,500,400,520
+o3,Good,0,50,0,50
+o3,Satisfactory,50,100,50,100
+o3,Moderate,100,200,100,168
+o3,Poor,200,300,168,208
+o3,Very Poor,300,400,208,748
+o3,Severe,400,500,748,1288
+co,Good,0,50,0,1.0
+co,Satisfactory,50,100,1.0,2.0
+co,Moderate,100,200,2.0,10
+co,Poor,200,300,10,17
+co,Very Poor,300,400,17,34
+co,Severe,400,500,34,51
+so2,Good,0,50,0,40
+so2,Satisfactory,50,100,40,80
+so2,Moderate,100,200,80,380
+so2,Poor,200,300,380,800
+so2,Very Poor,300,400,800,1600
+so2,Severe,400,500,1600,2400

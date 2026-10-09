@@ -1,0 +1,7 @@
+pollutant,name,unit,aqi_averaging,naaqs_24h_or_8h,naaqs_averaging,naaqs_annual,sort_order
+pm25,PM2.5,µg/m³,24-hour mean,60,24-hour,40,1
+pm10,PM10,µg/m³,24-hour mean,100,24-hour,60,2
+no2,NO2,µg/m³,24-hour mean,80,24-hour,40,3
+o3,O3,µg/m³,maximum 8-hour mean,100,8-hour,,4
+co,CO,mg/m³,maximum 8-hour mean,2,8-hour,,5
+so2,SO2,µg/m³,24-hour mean,80,24-hour,50,6

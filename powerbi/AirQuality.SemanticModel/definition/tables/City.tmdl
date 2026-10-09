@@ -1,0 +1,45 @@
+table City
+
+	column city
+		dataType: string
+		sortByColumn: city_order
+		summarizeBy: none
+		sourceColumn: city
+
+	column state
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: state
+
+	column region
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region
+
+	column city_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: city_order
+
+	partition City = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_city.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"state", type text},
+						{"region", type text},
+						{"city_order", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

@@ -1,0 +1,9 @@
+# downloaded archive files and everything built from them
+data/
+__pycache__/
+*.pyc
+.venv/
+# Power BI local caches
+powerbi/**/.pbi/localSettings.json
+powerbi/**/.pbi/cache.abf
+.captures/

@@ -1,0 +1,83 @@
+table Profile
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant
+
+	column season
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: season
+
+	column season_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: season_order
+
+	column weekday_no
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: weekday_no
+
+	column weekday_name
+		dataType: string
+		sortByColumn: weekday_no
+		summarizeBy: none
+		sourceColumn: weekday_name
+
+	column hour
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: hour
+
+	column mean_value
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: mean_value
+
+	column n_hours
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: n_hours
+
+	partition Profile = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_profile_hourly.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"pollutant", type text},
+						{"season", type text},
+						{"season_order", Int64.Type},
+						{"weekday_no", Int64.Type},
+						{"weekday_name", type text},
+						{"hour", Int64.Type},
+						{"mean_value", type number},
+						{"n_hours", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

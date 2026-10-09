@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_ProTooling = ["TMDL-Extension"]
+
+ref table City
+ref table Date
+ref table Pollutant
+ref table 'City AQI'
+ref table Exceedance
+ref table Spikes
+ref table 'Oct-Nov'
+ref table Profile
+ref table Completeness
+ref table Issues
+ref table Year
+ref table Season
+ref table 'Oct-Nov periods'
+ref table Metrics

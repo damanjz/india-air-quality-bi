@@ -1,0 +1,93 @@
+table Completeness
+
+	column station_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: station_id
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant
+
+	column month_start
+		dataType: dateTime
+		formatString: mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_start
+
+	column hours_in_month
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: none
+		sourceColumn: hours_in_month
+
+	column valid_hours
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: none
+		sourceColumn: valid_hours
+
+	column completeness_pct
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: completeness_pct
+
+	column complete_days
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: complete_days
+
+	column valid_readings
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: valid_readings
+
+	column readings_set_aside
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: readings_set_aside
+
+	partition Completeness = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_station_completeness.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"station_id", type text},
+						{"city", type text},
+						{"pollutant", type text},
+						{"month_start", type date},
+						{"hours_in_month", Int64.Type},
+						{"valid_hours", Int64.Type},
+						{"completeness_pct", type number},
+						{"complete_days", Int64.Type},
+						{"valid_readings", Int64.Type},
+						{"readings_set_aside", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

@@ -1,0 +1,73 @@
+table 'Oct-Nov periods'
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column year
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: year
+
+	column is_comparable
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_comparable
+
+	column pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: pm25
+
+	column period
+		dataType: string
+		sortByColumn: period_order
+		summarizeBy: none
+		sourceColumn: period
+
+	column period_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: period_order
+
+	partition 'Oct-Nov periods' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_octnov_season.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"year", Int64.Type},
+						{"sep_days", Int64.Type},
+						{"sep_pm25", type number},
+						{"octnov_days", Int64.Type},
+						{"octnov_pm25", type number},
+						{"dec_days", Int64.Type},
+						{"dec_pm25", type number},
+						{"octnov_vs_sep", type number},
+						{"octnov_days_with_aqi", Int64.Type},
+						{"octnov_days_very_poor_or_worse", Int64.Type}
+				        },
+				        "en-US"
+				    ),
+				    Comparable = Table.AddColumn(#"Typed columns", "is_comparable", each [sep_days] >= 15 and [octnov_days] >= 40, type logical),
+				    Kept = Table.SelectColumns(Comparable, {"city", "year", "is_comparable", "sep_pm25", "octnov_pm25", "dec_pm25"}),
+				    Long = Table.UnpivotOtherColumns(Kept, {"city", "year", "is_comparable"}, "source_column", "pm25"),
+				    Names = {{"sep_pm25", "September", 1}, {"octnov_pm25", "Oct-Nov", 2}, {"dec_pm25", "December", 3}},
+				    Named = Table.AddColumn(Long, "period", each List.First(List.Select(Names, (n) => n{0} = [source_column])){1}, type text),
+				    Ordered = Table.AddColumn(Named, "period_order", each List.First(List.Select(Names, (n) => n{0} = [source_column])){2}, Int64.Type),
+				    Typed = Table.TransformColumnTypes(Table.RemoveColumns(Ordered, {"source_column"}), {{"pm25", type number}}, "en-US")
+				in
+				    Typed

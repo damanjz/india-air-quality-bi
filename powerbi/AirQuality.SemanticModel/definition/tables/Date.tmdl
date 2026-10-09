@@ -1,0 +1,111 @@
+table Date
+
+	column date
+		dataType: dateTime
+		formatString: d mmm yyyy
+		summarizeBy: none
+		sourceColumn: date
+
+	column year
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+
+	column month
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_name
+		dataType: string
+		sortByColumn: month
+		summarizeBy: none
+		sourceColumn: month_name
+
+	column month_start
+		dataType: dateTime
+		formatString: mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_start
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: quarter
+
+	column weekday_no
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: weekday_no
+
+	column weekday_name
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: weekday_name
+
+	column is_weekend
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+	column season
+		dataType: string
+		summarizeBy: none
+		sourceColumn: season
+
+	column season_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: season_order
+
+	column is_oct_nov
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_oct_nov
+
+	column month_initial
+		dataType: string
+		sortByColumn: month
+		summarizeBy: none
+		sourceColumn: month_initial
+
+	partition Date = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_date.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"date", type date},
+						{"year", Int64.Type},
+						{"month", Int64.Type},
+						{"month_name", type text},
+						{"month_start", type date},
+						{"quarter", Int64.Type},
+						{"weekday_no", Int64.Type},
+						{"weekday_name", type text},
+						{"is_weekend", type logical},
+						{"season", type text},
+						{"season_order", Int64.Type},
+						{"is_oct_nov", type logical}
+				        },
+				        "en-US"
+				    ),
+				    #"Month initial" = Table.AddColumn(#"Typed columns", "month_initial", each Text.Start([month_name], 1) & Text.Repeat(Character.FromNumber(8203), if List.Contains({6, 5, 8}, [month]) then 1 else if [month] = 7 then 2 else 0), type text)
+				in
+				    #"Month initial"

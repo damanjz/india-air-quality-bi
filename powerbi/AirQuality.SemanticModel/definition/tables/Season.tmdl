@@ -1,0 +1,42 @@
+table Season
+
+	column season
+		dataType: string
+		sortByColumn: season_order
+		summarizeBy: none
+		sourceColumn: season
+
+	column season_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: season_order
+
+	partition Season = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_date.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"date", type date},
+						{"year", Int64.Type},
+						{"month", Int64.Type},
+						{"month_name", type text},
+						{"month_start", type date},
+						{"quarter", Int64.Type},
+						{"weekday_no", Int64.Type},
+						{"weekday_name", type text},
+						{"is_weekend", type logical},
+						{"season", type text},
+						{"season_order", Int64.Type},
+						{"is_oct_nov", type logical}
+				        },
+				        "en-US"
+				    ),
+				    Seasons = Table.Sort(Table.Distinct(Table.SelectColumns(#"Typed columns", {"season", "season_order"})), {{"season_order", Order.Ascending}})
+				in
+				    Seasons

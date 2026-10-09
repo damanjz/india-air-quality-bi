@@ -1,0 +1,15 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/1.4.0/schema.json",
+  "name": "hours",
+  "displayName": "Hours",
+  "displayOption": "FitToPage",
+  "height": 720,
+  "width": 1280,
+  "visualInteractions": [
+    {
+      "source": "c3c5623561c48bb75fa3",
+      "target": "0f6121988506cd63f1bb",
+      "type": "NoFilter"
+    }
+  ]
+}

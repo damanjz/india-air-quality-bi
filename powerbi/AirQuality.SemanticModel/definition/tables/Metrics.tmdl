@@ -1,0 +1,352 @@
+table Metrics
+
+	/// City-days with a CPCB AQI.
+	measure 'City-days' = COUNTROWS ( 'City AQI' )
+		formatString: #,0
+
+	/// Mean of the daily city AQI.
+	measure 'Mean AQI' = AVERAGE ( 'City AQI'[aqi] )
+		formatString: 0
+
+	/// City-days with AQI above 200 (Poor, Very Poor or Severe).
+	measure 'Poor or worse days' = CALCULATE ( COUNTROWS ( 'City AQI' ), 'City AQI'[aqi] > 200 )
+		formatString: #,0
+
+	/// Share of city-days with AQI above 200.
+	measure 'Poor or worse share' = DIVIDE ( [Poor or worse days], [City-days] )
+		formatString: 0%
+
+	/// City with the highest mean AQI in the selection.
+	measure 'Worst city' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( City[city] ), "@a", [Mean AQI] ), NOT ISBLANK ( [@a] ) )
+			RETURN MAXX ( TOPN ( 1, t, [@a], DESC, City[city], ASC ), City[city] )
+			```
+
+	/// Mean AQI of the worst city.
+	measure 'Worst city AQI' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( City[city] ), "@a", [Mean AQI] ), NOT ISBLANK ( [@a] ) )
+			RETURN MAXX ( t, [@a] )
+			```
+		formatString: 0
+
+	/// City with the lowest mean AQI in the selection.
+	measure 'Cleanest city' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( City[city] ), "@a", [Mean AQI] ), NOT ISBLANK ( [@a] ) )
+			RETURN MAXX ( TOPN ( 1, t, [@a], ASC, City[city], ASC ), City[city] )
+			```
+
+	/// City-days in each AQI category (chart label).
+	measure 'Days by category' = [City-days]
+		formatString: #,0
+
+	/// Share of city-days with mean PM2.5 above the 24-hour NAAQS (60 µg/m³).
+	measure 'PM2.5 over limit share' = ```
+			DIVIDE (
+			    CALCULATE ( SUM ( Exceedance[days_over_limit] ), Exceedance[pollutant] = "pm25" ),
+			    CALCULATE ( SUM ( Exceedance[days_measured] ), Exceedance[pollutant] = "pm25" )
+			)
+			```
+		formatString: 0%
+
+	/// Share of measured city-days over the pollutant's NAAQS (24-hour; 8-hour for O3 and CO).
+	measure 'Over NAAQS share' = DIVIDE ( SUM ( Exceedance[days_over_limit] ), SUM ( Exceedance[days_measured] ) )
+		formatString: 0%
+
+	/// Heatmap colour: darker = more days over.
+	measure 'Over NAAQS colour' = ```
+			VAR i = IF ( ISBLANK ( [Over NAAQS share] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Over NAAQS share] - 0, 0.8 - 0 ) * 8 ) ) ) )
+			RETURN SWITCH ( TRUE (), ISBLANK ( i ), "#fbfaf7", i = 0, "#f2efe7", i = 1, "#f0e0d6", i = 2, "#ebcbbb", i = 3, "#e3b09a", i = 4, "#d99478", i = 5, "#cd7558", i = 6, "#c0533a", i = 7, "#9c3f2a" )
+			```
+
+	/// Light text on the darkest cells.
+	measure 'Over NAAQS text' = ```
+			VAR i = IF ( ISBLANK ( [Over NAAQS share] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Over NAAQS share] - 0, 0.8 - 0 ) * 8 ) ) ) )
+			RETURN IF ( NOT ISBLANK ( i ) && i >= 6, "#fbfaf7", "#1d2330" )
+			```
+
+	/// One-sentence answer of page 1.
+	measure 'Answer: how bad' = ```
+			VAR n = [City-days]
+			VAR share = FORMAT ( [Poor or worse share], "0%" )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( n ), "No city-day in this selection has an AQI.",
+			        HASONEVALUE ( City[city] ),
+			            share & " of days in " & VALUES ( City[city] ) & " were Poor or worse (AQI above 200); its mean AQI is "
+			                & FORMAT ( [Mean AQI], "0" ) & ".",
+			        share & " of city-days were Poor or worse (AQI above 200); the worst city is " & [Worst city]
+			            & ", at a mean AQI of " & FORMAT ( [Worst city AQI], "0" ) & "."
+			    )
+			```
+
+	/// Mean AQI of a city-month with 15 or more days of AQI.
+	measure 'Month AQI' = IF ( [City-days] >= 15, [Mean AQI] )
+		formatString: 0
+
+	/// Heatmap colour: the CPCB category of the month's mean AQI.
+	measure 'Month AQI colour' = ```
+			VAR a = [Month AQI]
+			RETURN SWITCH ( TRUE (), ISBLANK ( a ), "#fbfaf7", a <= 50, "#2a8f7b", a <= 100, "#9cc5b5", a <= 200, "#e6d3a3",
+			                a <= 300, "#d39a4a", a <= 400, "#c0533a", "#7d2e22" )
+			```
+
+	/// One-sentence answer of page 2.
+	measure 'Answer: when' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Season[season] ), "@a", [Mean AQI] ), NOT ISBLANK ( [@a] ) )
+			VAR hi = TOPN ( 1, t, [@a], DESC, Season[season], ASC )
+			VAR lo = TOPN ( 1, t, [@a], ASC, Season[season], ASC )
+			VAR hiName = MAXX ( hi, Season[season] )
+			VAR loName = MAXX ( lo, Season[season] )
+			VAR hiMonths = CALCULATE ( FORMAT ( DATE ( 2000, MIN ( 'Date'[month] ), 1 ), "mmm" ) & "-" & FORMAT ( DATE ( 2000, MAX ( 'Date'[month] ), 1 ), "mmm" ), REMOVEFILTERS ( 'Date' ), 'Date'[season] = hiName )
+			VAR loMonths = CALCULATE ( FORMAT ( DATE ( 2000, MIN ( 'Date'[month] ), 1 ), "mmm" ) & "-" & FORMAT ( DATE ( 2000, MAX ( 'Date'[month] ), 1 ), "mmm" ), REMOVEFILTERS ( 'Date' ), 'Date'[season] = loName )
+			RETURN
+			    IF (
+			        COUNTROWS ( t ) < 2, "Too few seasons with data in this selection to compare.",
+			        hiName & " (" & hiMonths & ") is the worst season, at a mean AQI of " & FORMAT ( MAXX ( hi, [@a] ), "0" )
+			            & ", against " & FORMAT ( MAXX ( lo, [@a] ), "0" ) & " in the " & LOWER ( loName ) & " (" & loMonths & ")."
+			    )
+			```
+
+	/// Short PM2.5 spikes (episodes) in the selection.
+	measure 'Spike episodes' = COUNTROWS ( Spikes )
+		formatString: #,0
+
+	/// Short PM2.5 spikes in the selection, zero when none.
+	measure 'Spike count' = [Spike episodes] + 0
+		formatString: #,0
+
+	/// Spikes starting in the city-month as the grid shows them; empty when none.
+	measure 'Spike cell' = VAR n = [Spike episodes] RETURN IF ( ISBLANK ( n ), "", FORMAT ( n, "0" ) )
+
+	/// Grid colour: darker = more spikes.
+	measure 'Spike colour' = ```
+			VAR i = IF ( ISBLANK ( [Spike episodes] ), BLANK (), INT ( MIN ( 6, MAX ( 0, DIVIDE ( [Spike episodes] - 0, 6 - 0 ) * 7 ) ) ) )
+			RETURN SWITCH ( TRUE (), ISBLANK ( i ), "#fbfaf7", i = 0, "#f0e0d6", i = 1, "#ebcbbb", i = 2, "#e3b09a", i = 3, "#d99478", i = 4, "#cd7558", i = 5, "#c0533a", i = 6, "#9c3f2a" )
+			```
+
+	/// Light text on the darkest cells.
+	measure 'Spike text' = ```
+			VAR i = IF ( ISBLANK ( [Spike episodes] ), BLANK (), INT ( MIN ( 6, MAX ( 0, DIVIDE ( [Spike episodes] - 0, 6 - 0 ) * 7 ) ) ) )
+			RETURN IF ( NOT ISBLANK ( i ) && i >= 5, "#fbfaf7", "#1d2330" )
+			```
+
+	/// Median of the spikes' peak PM2.5 over the median of their surrounding days.
+	measure 'Median spike ratio' = MEDIAN ( Spikes[peak_ratio] )
+		formatString: "0.0""x"""
+
+	/// Rank of a spike by its peak against the surroundings, biggest first, within the selection.
+	measure 'Spike rank' = ```
+			VAR ep = SELECTEDVALUE ( Spikes[episode_id] )
+			VAR r = SELECTEDVALUE ( Spikes[peak_ratio] )
+			RETURN
+			    IF ( NOT ISBLANK ( ep ),
+			         COUNTROWS ( FILTER ( ALLSELECTED ( Spikes ),
+			             Spikes[peak_ratio] > r || ( Spikes[peak_ratio] = r && Spikes[episode_id] < ep ) ) ) + 1 )
+			```
+		formatString: 0
+
+	/// Days in the spike (largest spikes only).
+	measure 'Top spike days' = IF ( [Spike rank] <= 9, SUM ( Spikes[days] ) )
+		formatString: 0
+
+	/// Highest city daily PM2.5 in the spike, µg/m³ (largest spikes only).
+	measure 'Top spike peak' = IF ( [Spike rank] <= 9, SUM ( Spikes[peak_pm25] ) )
+		formatString: 0
+
+	/// Peak over the median of the surrounding days (largest spikes only).
+	measure 'Top spike ratio' = IF ( [Spike rank] <= 9, SUM ( Spikes[peak_ratio] ) )
+		formatString: "0.0""x"""
+
+	/// Stations at the spike ratio or more on the peak day, of the stations measured (largest spikes only).
+	measure 'Top spike stations' = ```
+			IF ( [Spike rank] <= 9,
+			     FORMAT ( SUM ( Spikes[stations_at_ratio] ), "0" ) & " of " & FORMAT ( SUM ( Spikes[stations_on_peak_day] ), "0" ) )
+			```
+
+	/// October-November PM2.5 over September PM2.5, averaged over city-years with 15+ September and 40+ Oct-Nov days.
+	measure 'Oct-Nov vs Sep' = AVERAGEX ( FILTER ( 'Oct-Nov', 'Oct-Nov'[is_comparable] ), 'Oct-Nov'[octnov_vs_sep] )
+		formatString: "0.0""x"""
+
+	/// City-years in the Oct-Nov vs September comparison.
+	measure 'Oct-Nov comparable years' = COUNTROWS ( FILTER ( 'Oct-Nov', 'Oct-Nov'[is_comparable] ) ) + 0
+		formatString: 0
+
+	/// Share of October-November city-days with AQI above 300 (Very Poor or Severe).
+	measure 'Oct-Nov Very Poor share' = DIVIDE ( SUM ( 'Oct-Nov'[octnov_days_very_poor_or_worse] ), SUM ( 'Oct-Nov'[octnov_days_with_aqi] ) )
+		formatString: 0%
+
+	/// Mean PM2.5 of the period, averaged over the comparable city-years.
+	measure 'Period PM2.5' = AVERAGEX ( FILTER ( 'Oct-Nov periods', 'Oct-Nov periods'[is_comparable] ), 'Oct-Nov periods'[pm25] )
+		formatString: 0
+
+	/// One-sentence answer of page 3.
+	measure 'Answer: spikes' = ```
+			VAR n = [Spike episodes]
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( 'Date'[month] ), "@n", [Spike episodes] ), NOT ISBLANK ( [@n] ) )
+			VAR best = TOPN ( 1, t, [@n], DESC, 'Date'[month], ASC )
+			VAR m = MAXX ( best, 'Date'[month] )
+			VAR k = MAXX ( best, [@n] )
+			VAR s = [Oct-Nov vs Sep]
+			VAR first =
+			    IF ( ISBLANK ( n ), "No short spike in this selection",
+			         FORMAT ( n, "#,0" ) & IF ( n = 1, " short spike", " short spikes" ) & "; the most start in "
+			             & FORMAT ( DATE ( 2000, m, 1 ), "mmmm" ) & " (" & FORMAT ( k, "0" ) & ")" )
+			RETURN
+			    first & IF ( ISBLANK ( s ), ".", "; Oct-Nov ran " & FORMAT ( s, "0.0" ) & "x September." )
+			```
+
+	/// Mean concentration over the hours in context (weighted by hours measured).
+	measure 'Mean concentration' = DIVIDE ( SUMX ( Profile, Profile[mean_value] * Profile[n_hours] ), SUM ( Profile[n_hours] ) )
+		formatString: 0
+
+	/// Mean concentration as the heatmap shows it.
+	measure 'Hour cell' = ```
+			VAR v = [Mean concentration]
+			RETURN IF ( NOT ISBLANK ( v ), FORMAT ( v, IF ( v < 10, "0.00", "0" ) ) )
+			```
+
+	/// Heatmap colour, light = cleanest hour in the selection, dark = dirtiest.
+	measure 'Hour colour' = ```
+			VAR grid = CALCULATETABLE (
+			        ADDCOLUMNS ( SUMMARIZE ( Profile, Profile[hour], Profile[weekday_no] ), "@v", [Mean concentration] ),
+			        ALLSELECTED ( Profile ) )
+			VAR lo = MINX ( grid, [@v] )
+			VAR hi = MAXX ( grid, [@v] ) + 0.000001
+			VAR i = IF ( ISBLANK ( [Mean concentration] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Mean concentration] - lo, hi - lo ) * 8 ) ) ) )
+			RETURN SWITCH ( TRUE (), ISBLANK ( i ), "#fbfaf7", i = 0, "#f2efe7", i = 1, "#dfe2ea", i = 2, "#c6cee2", i = 3, "#a6b5d8", i = 4, "#8299cb", i = 5, "#5d7cbe", i = 6, "#3f62b4", i = 7, "#2a4a96" )
+			```
+
+	/// Light text on the darkest cells.
+	measure 'Hour text' = ```
+			VAR grid = CALCULATETABLE (
+			        ADDCOLUMNS ( SUMMARIZE ( Profile, Profile[hour], Profile[weekday_no] ), "@v", [Mean concentration] ),
+			        ALLSELECTED ( Profile ) )
+			VAR lo = MINX ( grid, [@v] )
+			VAR hi = MAXX ( grid, [@v] ) + 0.000001
+			VAR i = IF ( ISBLANK ( [Mean concentration] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Mean concentration] - lo, hi - lo ) * 8 ) ) ) )
+			RETURN IF ( NOT ISBLANK ( i ) && i >= 6, "#fbfaf7", "#1d2330" )
+			```
+
+	/// Weekday mean against the mean of the whole week.
+	measure 'Weekday vs week' = DIVIDE ( [Mean concentration], CALCULATE ( [Mean concentration], REMOVEFILTERS ( Profile[weekday_name], Profile[weekday_no] ) ) ) - 1
+		formatString: +0.0%;-0.0%;0.0%
+
+	/// Hour of day (IST) with the highest mean.
+	measure 'Peak hour' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Profile[hour] ), "@v", [Mean concentration] ), NOT ISBLANK ( [@v] ) )
+			RETURN MAXX ( TOPN ( 1, t, [@v], DESC, Profile[hour], ASC ), Profile[hour] )
+			```
+		formatString: 0
+
+	/// Hour of day (IST) with the lowest mean.
+	measure 'Cleanest hour' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Profile[hour] ), "@v", [Mean concentration] ), NOT ISBLANK ( [@v] ) )
+			RETURN MAXX ( TOPN ( 1, t, [@v], ASC, Profile[hour], ASC ), Profile[hour] )
+			```
+		formatString: 0
+
+	/// Peak hour mean over the cleanest hour mean.
+	measure 'Peak vs cleanest hour' = ```
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Profile[hour] ), "@v", [Mean concentration] ), NOT ISBLANK ( [@v] ) )
+			RETURN DIVIDE ( MAXX ( t, [@v] ), MINX ( t, [@v] ) )
+			```
+		formatString: "0.0""x"""
+
+	/// One-sentence answer of page 4.
+	measure 'Answer: hours' = ```
+			VAR p = SELECTEDVALUE ( Pollutant[pollutant_name] )
+			VAR u = SELECTEDVALUE ( Pollutant[unit] )
+			VAR t = FILTER ( ADDCOLUMNS ( VALUES ( Profile[hour] ), "@v", [Mean concentration] ), NOT ISBLANK ( [@v] ) )
+			VAR hi = MAXX ( t, [@v] )
+			VAR fmt = IF ( hi < 10, "0.00", "0" )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( p ), "Pick one pollutant to compare the hours of the day.",
+			        ISBLANK ( hi ), "No hourly " & p & " readings in this selection.",
+			        p & " peaks at " & FORMAT ( [Peak hour], "00" ) & ":00 IST (" & FORMAT ( hi, fmt ) & " " & u & "), "
+			            & FORMAT ( [Peak vs cleanest hour], "0.0" ) & " times the cleanest hour, " & FORMAT ( [Cleanest hour], "00" ) & ":00."
+			    )
+			```
+
+	/// Monitoring stations in the selection.
+	measure Stations = DISTINCTCOUNT ( Completeness[station_id] )
+		formatString: 0
+
+	/// Station-pollutant hours with at least one valid reading.
+	measure 'Valid hours' = SUM ( Completeness[valid_hours] )
+		formatString: #,0
+
+	/// Station-pollutant hours in the study window.
+	measure 'Possible hours' = SUM ( Completeness[hours_in_month] )
+		formatString: #,0
+
+	/// Valid hours over possible hours.
+	measure Completeness = DIVIDE ( [Valid hours], [Possible hours] )
+		formatString: 0%
+
+	/// Completeness as the heatmap shows it.
+	measure 'Completeness cell' = FORMAT ( [Completeness], "0%" )
+
+	/// Heatmap colour: paper = no data, ink = complete.
+	measure 'Completeness colour' = ```
+			VAR i = IF ( ISBLANK ( [Completeness] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Completeness] - 0, 1.0001 - 0 ) * 8 ) ) ) )
+			RETURN SWITCH ( TRUE (), ISBLANK ( i ), "#fbfaf7", i = 0, "#f2efe7", i = 1, "#dfe2ea", i = 2, "#c6cee2", i = 3, "#a6b5d8", i = 4, "#8299cb", i = 5, "#5d7cbe", i = 6, "#3f62b4", i = 7, "#2a4a96" )
+			```
+
+	/// Light text on the darkest cells.
+	measure 'Completeness text' = ```
+			VAR i = IF ( ISBLANK ( [Completeness] ), BLANK (), INT ( MIN ( 7, MAX ( 0, DIVIDE ( [Completeness] - 0, 1.0001 - 0 ) * 8 ) ) ) )
+			RETURN IF ( NOT ISBLANK ( i ) && i >= 6, "#fbfaf7", "#1d2330" )
+			```
+
+	/// Count for each issue; with a pollutant picked, its issues plus those that concern every pollutant.
+	measure 'Issue count' = ```
+			IF (
+			    ISFILTERED ( Pollutant ),
+			    CALCULATE ( SUM ( Issues[n] ), KEEPFILTERS ( TREATAS ( VALUES ( Pollutant[pollutant] ), Issues[pollutant] ) ) )
+			        + CALCULATE ( SUM ( Issues[n] ), Issues[pollutant] = BLANK () ),
+			    SUM ( Issues[n] )
+			)
+			```
+		formatString: #,0
+
+	/// Archive readings set aside, each with a named reason.
+	measure 'Readings set aside' = CALCULATE ( [Issue count], Issues[level] = "reading", Issues[action] = "set aside" ) + 0
+		formatString: #,0
+
+	/// Station-days in the window with no archive file at all.
+	measure 'Days missing' = CALCULATE ( SUM ( Issues[n] ), Issues[level] = "station-day" ) + 0
+		formatString: #,0
+
+	/// Valid hours, grouped in thousands.
+	measure 'Valid hours text' = FORMAT ( [Valid hours], "#,0" )
+
+	/// Readings set aside, grouped in thousands.
+	measure 'Readings set aside text' = FORMAT ( [Readings set aside], "#,0" )
+
+	/// Station-days missing, grouped in thousands.
+	measure 'Days missing text' = FORMAT ( [Days missing], "#,0" )
+
+	/// Issue count, grouped in thousands.
+	measure 'Issue count text' = VAR c = [Issue count] RETURN IF ( NOT ISBLANK ( c ), FORMAT ( c, "#,0" ) )
+
+	/// One-sentence answer of page 5.
+	measure 'Answer: trust' = ```
+			VAR c = [Completeness]
+			RETURN
+			    IF ( ISBLANK ( c ), "No station in this selection.",
+			         FORMAT ( c, "0%" ) & " of possible station-hours hold a valid reading; " & FORMAT ( [Readings set aside], "#,0" )
+			             & " readings were set aside, each under a named reason." )
+			```
+
+	column Value
+		dataType: int64
+		isHidden
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition Metrics = calculated
+		mode: import
+		source = { 1 }

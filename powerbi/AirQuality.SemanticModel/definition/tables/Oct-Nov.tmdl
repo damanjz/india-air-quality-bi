@@ -1,0 +1,110 @@
+table 'Oct-Nov'
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column year
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: year
+
+	column sep_days
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: sep_days
+
+	column sep_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: sep_pm25
+
+	column octnov_days
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: octnov_days
+
+	column octnov_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: octnov_pm25
+
+	column dec_days
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: dec_days
+
+	column dec_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: dec_pm25
+
+	column octnov_vs_sep
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: octnov_vs_sep
+
+	column octnov_days_with_aqi
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: octnov_days_with_aqi
+
+	column octnov_days_very_poor_or_worse
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: octnov_days_very_poor_or_worse
+
+	column is_comparable
+		dataType: boolean
+		isHidden
+		summarizeBy: none
+		sourceColumn: is_comparable
+
+	partition 'Oct-Nov' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_octnov_season.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"year", Int64.Type},
+						{"sep_days", Int64.Type},
+						{"sep_pm25", type number},
+						{"octnov_days", Int64.Type},
+						{"octnov_pm25", type number},
+						{"dec_days", Int64.Type},
+						{"dec_pm25", type number},
+						{"octnov_vs_sep", type number},
+						{"octnov_days_with_aqi", Int64.Type},
+						{"octnov_days_very_poor_or_worse", Int64.Type}
+				        },
+				        "en-US"
+				    ),
+				    #"Comparable" = Table.AddColumn(#"Typed columns", "is_comparable", each [sep_days] >= 15 and [octnov_days] >= 40, type logical)
+				in
+				    #"Comparable"

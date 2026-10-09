@@ -1,0 +1,79 @@
+relationship d6ba2269-e974-5660-9d94-46ffeedcfbe2
+	fromColumn: Date.year
+	toColumn: Year.year
+
+relationship c304d1af-ffbc-5d58-9311-eaf91078ed49
+	fromColumn: Date.season
+	toColumn: Season.season
+
+relationship f0d52e53-3012-5917-a952-49fc9119bf35
+	fromColumn: 'City AQI'.city
+	toColumn: City.city
+
+relationship 749d3e21-d4fb-559e-80fa-c807797fe852
+	fromColumn: 'City AQI'.date
+	toColumn: Date.date
+
+relationship 74db774f-8ac2-5487-a48b-fb27f1039422
+	fromColumn: Exceedance.city
+	toColumn: City.city
+
+relationship 6e068c42-8a51-5bd3-9772-98e944e44b65
+	fromColumn: Exceedance.year
+	toColumn: Year.year
+
+relationship 40ea952b-c458-542b-bcf7-b6c487e9cc89
+	fromColumn: Exceedance.pollutant
+	toColumn: Pollutant.pollutant
+
+relationship f20febf0-9d47-5745-9721-415dac6d132c
+	fromColumn: Spikes.city
+	toColumn: City.city
+
+relationship 44d9d20d-cebf-55b2-ae14-c1c315e0bb18
+	fromColumn: Spikes.start_date
+	toColumn: Date.date
+
+relationship 127d0135-932b-524f-9921-c2fe1ab61d23
+	fromColumn: 'Oct-Nov'.city
+	toColumn: City.city
+
+relationship 775dc049-74a3-5719-8241-f3b3e700a9ed
+	fromColumn: 'Oct-Nov'.year
+	toColumn: Year.year
+
+relationship 54164ad4-9bf3-55d4-a816-9b8ec3e80213
+	fromColumn: 'Oct-Nov periods'.city
+	toColumn: City.city
+
+relationship 5c24e4bb-1f35-5eda-bb6c-67ce55234cf4
+	fromColumn: 'Oct-Nov periods'.year
+	toColumn: Year.year
+
+relationship 1bc9b1e5-5234-5635-8e0a-3859ce727da0
+	fromColumn: Profile.city
+	toColumn: City.city
+
+relationship 2bdc87d0-3c66-55b4-a454-7e4458c985f8
+	fromColumn: Profile.pollutant
+	toColumn: Pollutant.pollutant
+
+relationship a0615c76-5492-5584-9ed1-a59c886dd304
+	fromColumn: Profile.season
+	toColumn: Season.season
+
+relationship bed6fd7a-1bc8-54ee-ad0f-89e89ba9069f
+	fromColumn: Completeness.city
+	toColumn: City.city
+
+relationship fb20eef8-4bd3-5200-8fa7-a6fafcd65cf8
+	fromColumn: Completeness.pollutant
+	toColumn: Pollutant.pollutant
+
+relationship 19678307-8b4c-5e73-b1dc-9d7c1a777b4b
+	fromColumn: Completeness.month_start
+	toColumn: Date.date
+
+relationship 4ce05345-47e6-5a08-bfdb-0edd9a6f2744
+	fromColumn: Issues.city
+	toColumn: City.city

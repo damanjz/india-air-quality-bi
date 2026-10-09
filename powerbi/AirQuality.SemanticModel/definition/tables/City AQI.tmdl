@@ -1,0 +1,85 @@
+table 'City AQI'
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column date
+		dataType: dateTime
+		formatString: d mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: date
+
+	column aqi
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: aqi
+
+	column n_stations
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: n_stations
+
+	column min_station_aqi
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: min_station_aqi
+
+	column max_station_aqi
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: max_station_aqi
+
+	column category
+		dataType: string
+		sortByColumn: category_order
+		summarizeBy: none
+		sourceColumn: category
+
+	column category_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: category_order
+
+	column prominent_pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: prominent_pollutant
+
+	partition 'City AQI' = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_city_daily_aqi.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"date", type date},
+						{"aqi", Int64.Type},
+						{"n_stations", Int64.Type},
+						{"min_station_aqi", Int64.Type},
+						{"max_station_aqi", Int64.Type},
+						{"category", type text},
+						{"category_order", Int64.Type},
+						{"prominent_pollutant", type text}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

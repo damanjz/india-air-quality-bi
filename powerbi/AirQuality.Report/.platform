@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AirQuality"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4e17f20a-fd59-5061-9e1d-d7b81bf0f380"
+  }
+}

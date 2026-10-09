@@ -1,0 +1,76 @@
+table Issues
+
+	column level
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: level
+
+	column issue
+		dataType: string
+		sortByColumn: issue_rank
+		summarizeBy: none
+		sourceColumn: issue
+
+	column action
+		dataType: string
+		summarizeBy: none
+		sourceColumn: action
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column station_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: station_id
+
+	column pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant
+
+	column n
+		dataType: int64
+		formatString: #,0
+		isHidden
+		summarizeBy: none
+		sourceColumn: n
+
+	column issue_rank
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: issue_rank
+
+	partition Issues = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_dq_issues.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"level", type text},
+						{"issue", type text},
+						{"action", type text},
+						{"city", type text},
+						{"station_id", type text},
+						{"pollutant", type text},
+						{"n", Int64.Type}
+				        },
+				        "en-US"
+				    ),
+				    Totals = Table.Group(#"Typed columns", {"issue"}, {{"total", each List.Sum([n]), type number}}),
+				    Ranked = Table.AddIndexColumn(Table.Sort(Totals, {{"total", Order.Descending}, {"issue", Order.Ascending}}), "issue_rank", 1, 1, Int64.Type),
+				    Joined = Table.NestedJoin(#"Typed columns", {"issue"}, Table.SelectColumns(Ranked, {"issue", "issue_rank"}), {"issue"}, "r", JoinKind.LeftOuter),
+				    #"With rank" = Table.ExpandTableColumn(Joined, "r", {"issue_rank"})
+				in
+				    #"With rank"

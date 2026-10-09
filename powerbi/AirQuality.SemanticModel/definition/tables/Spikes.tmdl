@@ -1,0 +1,133 @@
+table Spikes
+
+	column episode_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: episode_id
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column start_date
+		dataType: dateTime
+		formatString: d mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: start_date
+
+	column end_date
+		dataType: dateTime
+		formatString: d mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: end_date
+
+	column days
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: days
+
+	column year
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: year
+
+	column month
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_name
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_name
+
+	column peak_date
+		dataType: dateTime
+		formatString: d mmm yyyy
+		isHidden
+		summarizeBy: none
+		sourceColumn: peak_date
+
+	column peak_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: peak_pm25
+
+	column reference_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: reference_pm25
+
+	column peak_ratio
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: peak_ratio
+
+	column mean_pm25
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: mean_pm25
+
+	column stations_on_peak_day
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: stations_on_peak_day
+
+	column stations_at_ratio
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: stations_at_ratio
+
+	partition Spikes = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_spike_episodes.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"episode_id", type text},
+						{"city", type text},
+						{"start_date", type date},
+						{"end_date", type date},
+						{"days", Int64.Type},
+						{"year", Int64.Type},
+						{"month", Int64.Type},
+						{"month_name", type text},
+						{"peak_date", type date},
+						{"peak_pm25", type number},
+						{"reference_pm25", type number},
+						{"peak_ratio", type number},
+						{"mean_pm25", type number},
+						{"stations_on_peak_day", Int64.Type},
+						{"stations_at_ratio", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

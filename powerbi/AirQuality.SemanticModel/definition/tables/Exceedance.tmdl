@@ -1,0 +1,70 @@
+table Exceedance
+
+	column city
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: city
+
+	column year
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: year
+
+	column pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant
+
+	column naaqs_limit
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: naaqs_limit
+
+	column days_measured
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: days_measured
+
+	column days_over_limit
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: days_over_limit
+
+	column pct_days_over_limit
+		dataType: double
+		formatString: #,0.00
+		isHidden
+		summarizeBy: none
+		sourceColumn: pct_days_over_limit
+
+	partition Exceedance = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "mart_exceedance_city_year.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"city", type text},
+						{"year", Int64.Type},
+						{"pollutant", type text},
+						{"naaqs_limit", Int64.Type},
+						{"days_measured", Int64.Type},
+						{"days_over_limit", Int64.Type},
+						{"pct_days_over_limit", type number}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"

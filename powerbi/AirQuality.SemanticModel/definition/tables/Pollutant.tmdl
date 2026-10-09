@@ -1,0 +1,74 @@
+table Pollutant
+
+	column pollutant
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant
+
+	column pollutant_name
+		dataType: string
+		sortByColumn: pollutant_order
+		summarizeBy: none
+		sourceColumn: pollutant_name
+
+	column unit
+		dataType: string
+		summarizeBy: none
+		sourceColumn: unit
+
+	column aqi_averaging
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: aqi_averaging
+
+	column naaqs_limit
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: naaqs_limit
+
+	column naaqs_averaging
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: naaqs_averaging
+
+	column naaqs_annual
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: naaqs_annual
+
+	column pollutant_order
+		dataType: int64
+		formatString: 0
+		isHidden
+		summarizeBy: none
+		sourceColumn: pollutant_order
+
+	partition Pollutant = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "dim_pollutant.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				    #"Typed columns" = Table.TransformColumnTypes(
+				        #"Promoted headers",
+				        {
+						{"pollutant", type text},
+						{"pollutant_name", type text},
+						{"unit", type text},
+						{"aqi_averaging", type text},
+						{"naaqs_limit", Int64.Type},
+						{"naaqs_averaging", type text},
+						{"naaqs_annual", Int64.Type},
+						{"pollutant_order", Int64.Type}
+				        },
+				        "en-US"
+				    )
+				in
+				    #"Typed columns"
