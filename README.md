@@ -1,10 +1,41 @@
-# India Air Quality
+<picture>
+  <source media="(max-width: 600px) and (prefers-color-scheme: dark)" srcset=".github/assets/header-phone-dark.png">
+  <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset=".github/assets/header-phone-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/header-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/header-light.png">
+  <img src=".github/assets/header-light.png" width="100%" alt="India Air Quality. How bad is the air in six Indian cities, and can the data be trusted? 423/423 report figures match SQL. 23/23 checks pass; export gated. 36.1M valid readings, none filled in. 107 stations in 6 cities.">
+</picture>
 
-Government air-quality monitoring in Delhi, Mumbai, Kolkata, Chennai, Bengaluru and Hyderabad, 2019-01-01 to 2026-09-30, from the public OpenAQ archive. The first piece in this BI series built on real data rather than a simulation: downloaded with a manifest, cleaned with every problem counted, modelled as a star schema in DuckDB, scored with India's CPCB National AQI, tested, and delivered as an Excel workbook and a 5-page Power BI report generated from code.
+Government air-quality monitoring in Delhi, Mumbai, Kolkata, Chennai, Bengaluru and Hyderabad, 2019-01-01 to 2026-09-30, from the public OpenAQ archive, scored with India's CPCB National AQI. It is downloaded with a manifest, cleaned with every problem counted, modelled as a star schema in DuckDB, tested, and delivered as an Excel workbook and a 5-page Power BI report generated from code. The first piece in this BI series built on real data rather than a simulation, so every number has to survive the source instead of a sealed answer key.
 
-**[Read the case study (PDF)](docs/case-study.pdf)**, or the [web version](docs/case-study.html). Reviewing the code: **[How it works (PDF)](docs/how-it-works.pdf)** ([web](docs/how-it-works.html)), a fifteen-minute guide to the repo, the rebuild, the checks and the methods.
+[Case study (PDF)](docs/case-study.pdf) · [Portfolio page](https://damanjz.github.io/portfolio/projects/india-air-quality/)
 
-![How bad is each city: days by CPCB AQI category per city, and the share of days over the national standard by city and pollutant](docs/img/01-bad.png)
+## Results
+
+| Figure | Result | How it is produced |
+|---|---|---|
+| Report figures vs DuckDB | 423 of 423 match; 56 of 56 measures evaluate | `powerbi/check_report.py` recomputes every number the report shows with SQL in DuckDB |
+| Reconciliation checks | 23 of 23 pass; the export is blocked if any fails | `sql/checks.sql`, run by `src/pipeline.py` |
+| Valid readings | 36,075,426 of the six AQI pollutants; nothing filled, interpolated or estimated | Readings with disposition `valid` in `stg_readings` (`data/aq.duckdb`); `sql/01_staging.sql` gives every reading one disposition, valid or a named issue |
+| Stations | 107 (122 OpenAQ ids): Delhi 37, Mumbai 28, Hyderabad 14, Bengaluru 13, Chennai 8, Kolkata 7 | `dim_station` in `data/aq.duckdb`; stations found by `src/discover.py`, every inclusion decision in `reference/` |
+| Raw rows and city-days | 56,030,781 raw rows; 7,083 city-days with an AQI | `raw_file_rows` and `mart_city_daily_aqi` in `data/aq.duckdb` |
+| Mutation test | 23 of 23 deliberate breakages caught | `src/mutation_test.py` |
+| Nothing clipped on the report | 305 of 305 single lines, 36 of 36 wrapped texts, 14 of 14 grids fit | `powerbi/check_fit.py` |
+| Determinism | two builds from the raw files: 18 of 18 output files byte-identical | SHA-256 of every output from two builds (`data/build_a.sha`, `data/build_b.sha`) |
+
+Below the header, every figure in this README, the case study and the reviewer's guide is filled from the warehouse and the build logs by `docs/render_docs.py`; none is typed by hand.
+
+## How it works
+
+| Stage | What happens |
+|---|---|
+| Discover and download | Finds Indian stations in the OpenAQ archive without an API key, then downloads each daily file with MD5 verification into a manifest |
+| Stage | Typed readings on IST, canonical units, one disposition per reading (valid or a named issue) |
+| Model and marts | Star schema in DuckDB (city, station, pollutant, date; hourly and daily facts), then CPCB AQI, NAAQS exceedance, seasons, short spikes, profiles and completeness |
+| Check and export | Reconciliation checks gate the export of `data/model` and the Excel workbook |
+| Report | `powerbi/build_pbip.py` writes the Power BI project (TMDL model, PBIR report) from the warehouse |
+
+Reviewing the code? Start with [How it works (PDF)](docs/how-it-works.pdf) ([web](docs/how-it-works.html)), a fifteen-minute guide to the repo, the rebuild, the checks and the methods. The case study is also a [web page](docs/case-study.html).
 
 ## Why real data
 
@@ -21,18 +52,6 @@ The earlier pieces simulated their data and graded the analytics against a seale
 
 Nothing is filled, interpolated or estimated. 1,089,800 readings are set aside, each under a named reason.
 
-## Results
-
-| | |
-|---|---|
-| Stations | 107 (122 OpenAQ ids): Delhi 37, Mumbai 28, Hyderabad 14, Bengaluru 13, Chennai 8, Kolkata 7 |
-| Readings | 56,030,781 raw rows; 36,075,426 valid readings of the six AQI pollutants; 7,083 city-days with an AQI |
-| Reconciliation checks | 23 of 23 pass; the export is blocked if any fails |
-| Mutation test | 23 of 23 deliberate breakages caught |
-| Report numbers vs DuckDB | 56 of 56 measures evaluate; 423 of 423 figures match |
-| Nothing clipped on the report | 305 of 305 single lines, 36 of 36 wrapped texts, 14 of 14 grids fit |
-| Determinism | two builds from the raw files: 18 of 18 output files byte-identical |
-
 ## Findings
 
 - Worst city-month: Delhi Nov 2021, mean AQI 401, 30 of 30 days Very Poor or Severe. Worst outside Delhi: Kolkata Jan 2021 at 271.
@@ -46,6 +65,8 @@ Every finding with its numbers: [docs/findings.md](docs/findings.md). Source, pr
 
 ## What it answers
 
+![How bad is each city: days by CPCB AQI category per city, and the share of days over the national standard by city and pollutant](docs/img/01-bad.png)
+
 | Question | Where |
 |---|---|
 | How bad is each city, month by month? | Report pages 1 and 2; `mart_city_month`; workbook AQI and PM2.5 matrices |
@@ -56,7 +77,7 @@ Every finding with its numbers: [docs/findings.md](docs/findings.md). Source, pr
 | Which hours and weekdays are worst? | Report page 4; `mart_profile_hourly` |
 | How complete is each station, and what is wrong with the data? | Report page 5; `mart_station_completeness`, `mart_dq_issues` |
 
-## The data
+## Data
 
 | | |
 |---|---|
@@ -65,6 +86,23 @@ Every finding with its numbers: [docs/findings.md](docs/findings.md). Source, pr
 | Attribution and licence | Credit CPCB and the state boards, and OpenAQ. OpenAQ passes on each provider's own licence (the archive lists it as varying by provider); see [docs/data-notes.md](docs/data-notes.md#source) |
 | Window | 2019-01-01 to 2026-09-30, hourly, on IST |
 | Download | 117,993 daily files, 337.4 MB, each MD5-verified and listed with its SHA-256 in `data/manifest.csv`; per-location summary committed in `reference/manifest_summary.csv` |
+
+## Rebuild
+
+Requirements: Python 3.12+, about 12 GB free disk (raw files, a 5.4 GB warehouse and a copy of it during the mutation test); Power BI Desktop (free, Windows) for the report.
+
+```bash
+python -m venv .venv
+.venv/Scripts/pip install -r requirements.txt
+.venv/Scripts/python src/discover.py        # optional: reference/stations.csv is committed
+.venv/Scripts/python src/download.py        # 337.4 MB into data/raw; resumable
+.venv/Scripts/python src/pipeline.py        # warehouse, checks, data/model CSVs and the Excel workbook
+.venv/Scripts/python src/mutation_test.py
+.venv/Scripts/python src/findings.py
+.venv/Scripts/python powerbi/build_pbip.py  # points the report at your data/model folder
+```
+
+Open `powerbi/AirQuality.pbip` in Power BI Desktop and choose Refresh. The workbook is written to `excel/india-air-quality.xlsx`. To refresh the docs: `docs/capture_docs.ps1`, `docs/charts.py`, `docs/render_docs.py`, then `docs/build_pdf.ps1` and `docs/build_pdf.ps1 -Name how-it-works`.
 
 ## Repo layout
 
@@ -87,26 +125,10 @@ powerbi/*.ps1              open, query, capture and validate helpers for Power B
 reference/                 station list with every inclusion decision, AQI breakpoints, pollutants, manifest summary
 docs/charts.py             case-study charts drawn from the marts
 docs/render_docs.py        fills the case study, the reviewer's guide and this README with figures from the warehouse and the build logs
+docs/readme.template.md    the source of this README; edit it, not README.md
 docs/capture_docs.ps1      copies the five report captures into docs/img in reading order
 docs/build_pdf.ps1         prints the case study (or -Name how-it-works) to PDF; -Review renders each page to an image
 ```
-
-## Rebuild it
-
-Requirements: Python 3.12+, about 12 GB free disk (raw files, a 5.4 GB warehouse and a copy of it during the mutation test); Power BI Desktop (free, Windows) for the report.
-
-```bash
-python -m venv .venv
-.venv/Scripts/pip install -r requirements.txt
-.venv/Scripts/python src/discover.py        # optional: reference/stations.csv is committed
-.venv/Scripts/python src/download.py        # 337.4 MB into data/raw; resumable
-.venv/Scripts/python src/pipeline.py        # warehouse, checks, data/model CSVs and the Excel workbook
-.venv/Scripts/python src/mutation_test.py
-.venv/Scripts/python src/findings.py
-.venv/Scripts/python powerbi/build_pbip.py  # points the report at your data/model folder
-```
-
-Open `powerbi/AirQuality.pbip` in Power BI Desktop and choose Refresh. The workbook is written to `excel/india-air-quality.xlsx`. To refresh the docs: `docs/capture_docs.ps1`, `docs/charts.py`, `docs/render_docs.py`, then `docs/build_pdf.ps1` and `docs/build_pdf.ps1 -Name how-it-works`.
 
 ## Limits
 
@@ -115,3 +137,7 @@ Open `powerbi/AirQuality.pbip` in Power BI Desktop and choose Refresh. The workb
 - No weather or emissions data: levels and timing are described, causes are not attributed.
 - City AQI is the mean of station AQIs, as in CPCB's bulletin; 22 of the 79 spikes are carried by one station of several, and are marked so.
 - Power BI has no free public link, so the report ships as a project with images in the docs. The workbook has Excel Tables, not native PivotTables.
+
+## Licence
+
+The code is MIT, see [LICENSE](LICENSE). The data stays under each provider's own terms; see [docs/data-notes.md](docs/data-notes.md#source).
